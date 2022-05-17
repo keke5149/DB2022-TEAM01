@@ -46,19 +46,22 @@ public class HelloWorld {
             group = scan.next();
             mem = scan.next();
 	    
-	    rSet.next();
+	    int i = 0;
 	    while(rSet.next()){
                 if(group.equals(rSet.getString("group")) &&  mem.equals(rSet.getString("member")))
-                	System.out.println("Already Registered");
-                else{
+                {	System.out.println("Already Registered");
+			i = 1;
+		}
+	    }
+	    if(i == 0){
                 	PreparedStatement pStmt = connection.prepareStatement("insert into `DB2022_idol` values (?, ?, ?)");
                 	pStmt.setString(1, group);
                 	pStmt.setString(2, mem);
                 	pStmt.setInt(3, 0);
                 	pStmt.executeUpdate();
                         pStmt.close();
-                }  
-            }
+             }  
+            
             rSet.close();
             stmt.close();
             connection.close();
